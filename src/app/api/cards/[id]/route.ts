@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
@@ -36,6 +37,7 @@ export async function PUT(
       },
     });
 
+    revalidatePath("/");
     return NextResponse.json(updatedCard);
   } catch (error) {
     return NextResponse.json(
@@ -64,6 +66,7 @@ export async function DELETE(
       where: { id },
     });
 
+    revalidatePath("/");
     return NextResponse.json({});
   } catch (error) {
     console.error("Error deleting card:", error);

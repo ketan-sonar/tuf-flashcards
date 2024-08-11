@@ -1,4 +1,5 @@
 import prisma from "@/utils/db";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -31,6 +32,7 @@ export async function POST(request: NextRequest) {
         backContent,
       },
     });
+    revalidatePath("/");
     return NextResponse.json(newCard, { status: 201 });
   } catch (error) {
     return NextResponse.json(
