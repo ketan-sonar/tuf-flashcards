@@ -14,7 +14,7 @@ function CardDiv({ card, isFlipped, className, onClick }: CardDivProps) {
   return (
     <div
       className={twMerge(
-        "relative h-[60vh] w-[60vw] max-w-sm cursor-pointer perspective-1000 md:h-[80vh] md:w-[90vw] md:max-w-md",
+        "relative h-[60vh] w-[60vw] max-w-sm cursor-pointer p-6 perspective-1000 md:h-[80vh] md:w-[90vw] md:max-w-md",
         className,
       )}
       onClick={onClick}
@@ -25,10 +25,14 @@ function CardDiv({ card, isFlipped, className, onClick }: CardDivProps) {
         }`}
       >
         <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-white shadow-xl backface-hidden">
-          <h2 className="text-2xl">{card.frontContent}</h2>
+          <h2 className="text-balance text-center text-lg md:text-2xl">
+            {card.frontContent}
+          </h2>
         </div>
         <div className="absolute flex h-full w-full rotate-y-180 items-center justify-center rounded-xl bg-gray-800 text-white shadow-xl backface-hidden">
-          <h2 className="text-2xl">{card.backContent}</h2>
+          <h2 className="text-balance text-center text-lg md:text-2xl">
+            {card.backContent}
+          </h2>
         </div>
       </div>
     </div>
@@ -56,6 +60,14 @@ export default function DisplayCards({ cards }: DisplayCardsProps) {
       setIndex((prev) => prev - 1);
     }
   };
+
+  if (cards.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center bg-[#d5fcd5]">
+        No cards to show!
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex h-full items-center justify-center bg-[#d5fcd5]">

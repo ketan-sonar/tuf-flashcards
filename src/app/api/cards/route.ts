@@ -1,6 +1,18 @@
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(request: NextRequest) {
+  try {
+    const cards = await prisma.card.findMany();
+    return NextResponse.json(cards);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Failed to fetch flash cards!" },
+      { status: 500 },
+    );
+  }
+}
+
 export async function POST(request: NextRequest) {
   const { title, frontContent, backContent } = await request.json();
 
