@@ -3,7 +3,7 @@ import DisplayCards from "./_components/display-cards";
 
 async function fetchFlashcards() {
   try {
-    const res = await fetch("http://localhost:3000/api/cards", {
+    const res = await fetch("https://tuf-flashcards.vercel.app/api/cards", {
       next: { revalidate: 0 },
     });
     if (!res.ok) {
