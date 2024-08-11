@@ -4,7 +4,7 @@ import DisplayCards from "./_components/display-cards";
 async function fetchFlashcards() {
   try {
     const res = await fetch("https://tuf-flashcards.vercel.app/api/cards", {
-      next: { revalidate: 0 },
+      next: { revalidate: 10 },
     });
     if (!res.ok) {
       return [];

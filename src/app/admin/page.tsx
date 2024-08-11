@@ -1,8 +1,24 @@
-import { getAllFlashcards } from "@/utils/actions";
 import CardsTable from "./_components/cards-table";
+import { Card } from "@prisma/client";
+
+async function fetchFlashcards() {
+  try {
+    const res = await fetch("https://tuf-flashcards.vercel.app/api/cards", {
+      next: { revalidate: 10 },
+    });
+    if (!res.ok) {
+      return [];
+    } else {
+      return (await res.json()) as Card[];
+    }
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
 
 export default async function AdminPage() {
-  const cards = await getAllFlashcards();
+  const cards = await fetchFlashcards();
 
   return (
     <main className="p-6">
